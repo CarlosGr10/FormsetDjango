@@ -8,13 +8,13 @@ from .forms import AlumnoForm
 
 class AddAlumno(FormView):
     template_name = 'alumno/add.html'
-    form_class = formset_factory(AlumnoForm, extra=2)
+    form_class = formset_factory(AlumnoForm, extra=1)
     success_url = reverse_lazy('list')
 
     def form_valid(self, form):
 
         for f in form:
-            print(f.cleaned_data['full_name'])
+            #print(f.cleaned_data['full_name'])
             f.save()
         return super(AddAlumno, self).form_valid(form)
 

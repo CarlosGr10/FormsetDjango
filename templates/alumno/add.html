@@ -6,11 +6,51 @@
     <div class="container">
 
         <form enctype="multipart/form-data" method="post">
-            {% csrf_token %}
-            {{ form.management_form }} <!--Para que no nos muestre un error de management_form-->
-            {{ form.as_p }}
+              {% csrf_token %}
+
+            <div id="formAdd">
+                {{ form.management_form }} <!--Para que no nos muestre un error de management_form-->
+                {% for f in form %}
+                    {{ f }}
+                {% endfor %}
+            <p></p>
+            </div>
+
             <button type="submit" class="btn btn-dark">Enviar</button>
         </form>
 
     </div>
+
+
+   <button class="btn btn-info" onclick="addInput()">Agregar +</button>
+
+   <button onclick="deleteInput()">Delete</button>
+
+    <script>
+        function addInput() {
+            var forms = document.querySelector('#id_form-TOTAL_FORMS') // El id lo obtenemos desde el ispaccionador
+
+            var newInput = document.querySelector('#id_form-0-full_name').cloneNode(true)
+            newInput.name = 'form-' + forms.value +'-full_name';
+            newInput.id = 'id_form' + forms.value +'-full_name';
+
+            var newSelect = document.querySelector('#id_form-0-gender').cloneNode(true)
+            newSelect.name = 'form-'+forms.value +'-gender';
+            newSelect.id = 'form-'+forms.value +'-gender';
+
+
+            console.log(forms.value);
+            document.querySelector('#formAdd').appendChild(newInput);
+            document.querySelector('#formAdd').appendChild(newSelect);
+
+            var p = document.createElement("p");
+            document.querySelector('#formAdd').appendChild(p);
+
+            forms.value = parseInt(forms.value) + 1;
+
+        }
+
+
+    </script>
+
 {% endblock %}
