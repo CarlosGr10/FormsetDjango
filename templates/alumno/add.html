@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block container %}
+
+    <div class="container">
+
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {{ form.management_form }} <!--Para que no nos muestre un error de management_form-->
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-dark">Enviar</button>
+        </form>
+
+    </div>
+{% endblock %}
